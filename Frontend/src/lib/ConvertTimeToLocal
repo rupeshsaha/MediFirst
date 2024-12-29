@@ -1,0 +1,4 @@
+export const convertTimeToLocal = (mongoTime) => {
+    const time = new Date(mongoTime);
+    return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+};
