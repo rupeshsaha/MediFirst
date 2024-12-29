@@ -34,10 +34,12 @@ const Paginate = () => {
       }
     }
 
+
     return pages;
   };
 
   const pages = getPageNumbers();
+
 
   return (
     <div className="md:w-full  items-center flex justify-center p-4  gap-2">

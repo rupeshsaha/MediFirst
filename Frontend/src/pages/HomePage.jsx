@@ -18,6 +18,7 @@ const HomePage = () => {
   const [location, setLocation] = useState("");
   const [search, setSearch] = useState(false);
   const [doctors, setDoctors] = useState([]);
+  const [totalDoctors, setTotalDoctors] = useState(0)
 
   const { currPage, setTotalPages } = useContext(StoreContext);
 
@@ -63,6 +64,7 @@ const HomePage = () => {
         const data = await response.json();
         if (response.status === 200) {
           setDoctors(data.availableDoctors);
+          setTotalDoctors(data.totalDoctors)
         }
         setTotalPages(data.totalPages);
       };
@@ -115,9 +117,10 @@ const HomePage = () => {
         {search ? (
           <h2 className="text-xl font-medium">
             Search Results -
-            <span className="pl-3 font-normal text-lg">
-              {doctors?.length} doctor{doctors?.length > 1 ? "s" : ""} found
-            </span>
+            {doctors?.length >0 &&
+            (<span className="pl-3 font-normal text-lg">
+              {totalDoctors} doctor{doctors?.length > 1 ? "s" : ""} found
+            </span>)}
           </h2>
         ) : (
           <h1 className="text-xl font-medium">Top Doctors</h1>
