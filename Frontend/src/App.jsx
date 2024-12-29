@@ -28,7 +28,9 @@ const App = () => {
         const data = await response.json();
         if (response.status === 200) {
           setLoggedInUserType(data.userType);
-          setName(data.patient.name || data.doctor.name)
+          console.log(data.doctor.name);
+          
+          setName(data.patient?.name || data.doctor?.name)
           setBalance(data.patient?.walletBalance || data.doctor?.totalEarnings);
         }
       };

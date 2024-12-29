@@ -108,40 +108,6 @@ const loginDoctor = async (req, res) => {
 };
 
 
-const updateDoctorDetails = async (req, res) => {
- try {
-   const {specialization, consultationFee} = req.body
- 
-   if(!specialization?.trim()){
-     return res.status(400).json({message: "All fields are required"})
-   }
- 
-   if(consultationFee<=0){
-     return res.status(400).json({message: "Consultation fee must be greater than 0"})
-   }
- 
-   const doctor = await Doctor.findByIdAndUpdate(req.user._id,
-     {
-       specialization,
-       consultationFee
-     }
-   )
- 
-   if(!doctor){
-     return res.status(500).json({message: "Error while updating doctor details"})
-   }
- 
-   const updatedDoctor = await Doctor.findById(req.user?._id).select("-password")
- 
-   return res.status(200).json({message: "Doctor details updated successfully", updatedDoctor})
- } catch (error) {
-  console.error("Error in update doctor details :", error.message);
-  return res
-    .status(500)
-    .json({ message: "Internal Server Error", error: error.message });
- }
-}
-
 const getDoctorAppointments = async (req, res) => {
 try {
     const {
@@ -159,6 +125,7 @@ try {
     .select(" -password ")
     .limit(limitNumber)
     .skip(skip)
+    .sort({createdAt : -1})
 
     const totalAppointments= await Appointment.countDocuments({doctorId: req.user?._id});
     const totalPages = Math.ceil(totalAppointments / limitNumber);
@@ -233,7 +200,6 @@ try{
 export {
     registerDoctor,
     loginDoctor,
-    updateDoctorDetails,
     getDoctorAppointments,
     findDoctor
 }

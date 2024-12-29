@@ -8,7 +8,8 @@ import Paginate from "../components/Paginate";
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
 
-  const { loggedInUserType, currPage, setTotalPages } = useContext(StoreContext);
+  const { loggedInUserType, currPage, setTotalPages } =
+    useContext(StoreContext);
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -24,8 +25,8 @@ const Transactions = () => {
         const data = await response.json();
 
         if (response.status === 200) {
-          setTransactions(data.transactions)
-          setTotalPages(data.totalPages)
+          setTransactions(data.transactions);
+          setTotalPages(data.totalPages);
         } else {
           alert(`${data.message}`);
         }
@@ -37,7 +38,7 @@ const Transactions = () => {
     if (loggedInUserType) {
       getTransactions();
     }
-  }, [loggedInUserType, currPage]); 
+  }, [loggedInUserType, currPage]);
 
   return (
     <div className="bg-[#e0ebfd7d] w-full p-4 md:p-8">
@@ -57,7 +58,7 @@ const Transactions = () => {
                 : "N/A"}
             </div>
             <div>Payment Time</div>
-            <div>Appointment Id</div>
+            <div>Amount</div>
             <div>Transaction Id</div>
             <div>Payment Status</div>
           </div>
@@ -87,12 +88,9 @@ const Transactions = () => {
                   )} ${convertTimeToLocal(transaction.createdAt)}`}
                 </div>
 
-                {/* Appointment Id */}
                 <div>
-                  <span className="font-medium md:hidden">
-                    Appointment Id:{" "}
-                  </span>
-                  {transaction.appointmentId}
+                  <span className="font-medium md:hidden">Amount: </span>₹{" "}
+                  {transaction.amount}
                 </div>
 
                 {/* Transaction Id */}
@@ -128,19 +126,13 @@ const Transactions = () => {
                         </div>
                       </Link>
                     )}
-
-                  {loggedInUserType === "Doctor" && (
-                    <div className="bg-blue-500 rounded-md px-2 py-1 text-white text-center text-sm hover:bg-blue-700 duration-300">
-                      View Details
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
           </div>
 
           {/* Pagination Component */}
-          <Paginate/>
+          <Paginate />
         </>
       ) : (
         <div className="text-center text-gray-600 mt-8">

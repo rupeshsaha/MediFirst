@@ -16,10 +16,10 @@ import Paginate from "../components/Paginate";
 const HomePage = () => {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
-  const [search, setSearch] = useState(false)
+  const [search, setSearch] = useState(false);
   const [doctors, setDoctors] = useState([]);
 
-  const { currPage, setTotalPages} = useContext(StoreContext);
+  const { currPage, setTotalPages } = useContext(StoreContext);
 
   const [topSpecialities, setTopSpeciality] = useState([
     {
@@ -48,8 +48,8 @@ const HomePage = () => {
     },
   ]);
 
-  useEffect(()=>{
-  try {
+  useEffect(() => {
+    try {
       const submitHandler = async () => {
         const response = await fetch(
           `${
@@ -61,19 +61,17 @@ const HomePage = () => {
           }
         );
         const data = await response.json();
-        if(response.status === 200){
-        setDoctors(data.availableDoctors);
-        setTotalPages(data.totalPages)
-      }
-      };  
-       submitHandler()
-  } catch (error) {
-    alert(`Error ${response.message}`)
-    console.error(`Error while finding doctors : ${error}`)
-  }
- 
-
-  },[currPage, search])
+        if (response.status === 200) {
+          setDoctors(data.availableDoctors);
+        }
+        setTotalPages(data.totalPages);
+      };
+      submitHandler();
+    } catch (error) {
+      alert(`Error ${response.message}`);
+      console.error(`Error while finding doctors : ${error}`);
+    }
+  }, [currPage, search]);
 
   return (
     <>
@@ -112,76 +110,73 @@ const HomePage = () => {
       </div>
 
       {/* Search Results */}
-      
-        <div className="bg-[#e0ebfd7d] md:p-6 p-3 flex flex-col gap-2 ">{
-          search ? (
+
+      <div className="bg-[#e0ebfd7d] md:p-6 p-3 flex flex-col gap-2 ">
+        {search ? (
           <h2 className="text-xl font-medium">
             Search Results -
             <span className="pl-3 font-normal text-lg">
               {doctors?.length} doctor{doctors?.length > 1 ? "s" : ""} found
             </span>
-          </h2>) : (
-            <h1 className="text-xl font-medium">Top Doctors</h1>
-          )
-          }
-          <div className=" md:p-3 grid lg:grid-cols-6 md:grid-cols-3 grid-cols-1  gap-3 ">
-            {doctors?.length > 0 ? (
-              doctors.map((doctor, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-md shadow-md p-6 text-center flex flex-col hover:border hover:border-blue-500 duration-300 gap-2 border border-gray-200 "
-                >
-                  <h1 className="md:text-lg text-2xl font-semibold text-blue-600">
-                    {doctor.name}
-                  </h1>
+          </h2>
+        ) : (
+          <h1 className="text-xl font-medium">Top Doctors</h1>
+        )}
+        <div className=" md:p-3 grid lg:grid-cols-6 md:grid-cols-3 grid-cols-1  gap-3 ">
+          {doctors?.length > 0 ? (
+            doctors.map((doctor, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-md shadow-md p-6 text-center flex flex-col hover:border hover:border-blue-500 duration-300 gap-2 border border-gray-200 "
+              >
+                <h1 className="md:text-lg text-2xl font-semibold text-blue-600">
+                  {doctor.name}
+                </h1>
 
-                  <div className="text-sm text-gray-600">
-                    <span className="font-medium text-gray-800">
-                      Specialization:{" "}
-                    </span>
-                    {doctor.specialization}
-                  </div>
-
-                  <div className="text-sm text-gray-600">
-                    <span className="font-medium text-gray-800">
-                      Experience:{" "}
-                    </span>
-                    {doctor.experience || 0}{" "}
-                    {doctor.experience > 1 ? "years" : "year"}
-                  </div>
-
-                  <div className="text-sm text-gray-600">
-                    <span className="font-medium text-gray-800">
-                      Location:{" "}
-                    </span>
-                    {doctor.location}
-                  </div>
-
-                  <div className="text-sm text-gray-600">
-                    <span className="font-medium text-gray-800">
-                      Consultation Fee:{" "}
-                    </span>
-                    ₹ {doctor.consultationFee}
-                  </div>
-
-                  <Link
-                    to={`/book-appointment?doctorId=${encodeURIComponent(
-                      doctor._id
-                    )}`}
-                  >
-                    <button className="mt-4 w-full bg-blue-500 text-white py-2 md:py-1 px-3 rounded-md hover:bg-blue-700 transition duration-300">
-                      Book Appointment
-                    </button>
-                  </Link>
+                <div className="text-sm text-gray-600">
+                  <span className="font-medium text-gray-800">
+                    Specialization:{" "}
+                  </span>
+                  {doctor.specialization}
                 </div>
-              ))
-            ) : (
-              <div>No Doctors Found</div>
-            )}
-          </div>
-          <Paginate/>
+
+                <div className="text-sm text-gray-600">
+                  <span className="font-medium text-gray-800">
+                    Experience:{" "}
+                  </span>
+                  {doctor.experience || 0}{" "}
+                  {doctor.experience > 1 ? "years" : "year"}
+                </div>
+
+                <div className="text-sm text-gray-600">
+                  <span className="font-medium text-gray-800">Location: </span>
+                  {doctor.location}
+                </div>
+
+                <div className="text-sm text-gray-600">
+                  <span className="font-medium text-gray-800">
+                    Consultation Fee:{" "}
+                  </span>
+                  ₹ {doctor.consultationFee}
+                </div>
+
+                <Link
+                  to={`/book-appointment?doctorId=${encodeURIComponent(
+                    doctor._id
+                  )}`}
+                >
+                  <button className="mt-4 w-full bg-blue-500 text-white py-2 md:py-1 px-3 rounded-md hover:bg-blue-700 transition duration-300">
+                    Book Appointment
+                  </button>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <div>No Doctors Found</div>
+          )}
         </div>
-      
+        <Paginate />
+      </div>
 
       {/* Top Specialities */}
       <div className="md:p-6  p-3  flex flex-col gap-2">
@@ -189,6 +184,10 @@ const HomePage = () => {
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 justify-around text-black font-medium p-4 lg:p-16">
           {topSpecialities.map((speciality, index) => (
             <div
+              onClick={() => {
+                setQuery(speciality.title);
+                setSearch(true);
+              }}
               key={index}
               className="rounded-md md:p-8 p-4 hover:scale-105 duration-200 bg-opacity-70 hover:bg-blue-50 text-center flex flex-col justify-center items-center  border-blue-500 border-2"
             >

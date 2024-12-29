@@ -175,10 +175,12 @@ const getPatientAppointments = async (req, res) => {
     filter.patientId = new mongoose.Types.ObjectId(patientId)  
  
      const appointments = await Appointment.find(filter)
-     .populate("doctorId")
      .skip(skip)
      .limit(limit)
+     .populate("doctorId")
      .select(" -password ")
+     .sort({createdAt : -1})
+   
 
      const totalAppointments= await Appointment.countDocuments(filter);
      const totalPages = Math.ceil(totalAppointments / limitNumber);

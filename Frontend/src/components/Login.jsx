@@ -45,8 +45,8 @@ const Login = ({ defaultIsOpen = false }) => {
         setEmail("");
         setPassword("");
         setResponseMessage("");
-        togglePopup();
         setLoggedInUserType(userType);
+        togglePopup();
       }
     } catch (error) {
       console.error("Error while login: ", error);

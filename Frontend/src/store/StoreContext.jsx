@@ -7,7 +7,7 @@ const StoreProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [loggedInUserType, setLoggedInUserType] = useState(null);
   const [balance, setBalance] = useState(0);
-  const [name, setName] = useState(null)
+  const [name, setName] = useState("")
 
   return (
     <StoreContext.Provider

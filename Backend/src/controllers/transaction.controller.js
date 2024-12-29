@@ -140,6 +140,8 @@ const getAllTransactions = async (req, res) => {
       .limit(limitNumber)
       .populate("patientId", "name")
       .populate("doctorId", "name")
+      .sort({ createdAt: -1 })
+
     const totalTransactions = await Transaction.countDocuments(filter);
     const totalPages = Math.ceil(totalTransactions / limitNumber);
 
