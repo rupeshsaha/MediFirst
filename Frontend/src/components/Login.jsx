@@ -41,12 +41,12 @@ const Login = ({ defaultIsOpen = false }) => {
       setResponseMessage(data.message);
       setResponseCode(response.status);
 
-      if (responseCode === 200) {
+      if (response.status === 200) {
         setEmail("");
         setPassword("");
         setResponseMessage("");
         setLoggedInUserType(userType);
-        togglePopup();
+        togglePopup()
       }
     } catch (error) {
       console.error("Error while login: ", error);
