@@ -72,17 +72,6 @@ Follow these steps to set up the project locally:
 - Data encryption for sensitive information.
 - Secure authentication with JWT.
 
-## 🤝 Contribution
-
-Contributions are welcome! Please fork the repository and create a pull request.
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
-## 📧 Contact
-
-For any inquiries or support, reach out at: **[support@example.com](mailto\:support@example.com)**
 
 Happy Booking! 🩺📅
 
