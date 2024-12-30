@@ -8,7 +8,9 @@ import Paginate from "../components/Paginate";
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const { loggedInUserType, currPage, setTotalPages } = useContext(StoreContext);
+  const [selectedAppointment, setSelectedAppointment] = useState(null); // Store the selected appointment
 
+  // Fetch Appointments
   useEffect(() => {
     const getAppointments = async () => {
       try {
@@ -21,12 +23,11 @@ const Appointments = () => {
             credentials: "include",
           }
         );
-        
-        
+
         const data = await response.json();
-        
+
         if (response.status === 200) {
-        setTotalPages(data.totalPages)
+          setTotalPages(data.totalPages);
           setAppointments(data.appointments);
         } else {
           alert(`${data.message}`);
@@ -40,6 +41,16 @@ const Appointments = () => {
       getAppointments();
     }
   }, [loggedInUserType, currPage]);
+
+  // Handle View Details Click
+  const handleViewDetails = (appointment) => {
+    setSelectedAppointment(appointment);
+  };
+
+  // Handle Popup Close
+  const closePopup = () => {
+    setSelectedAppointment(null);
+  };
 
   return (
     <div className="bg-[#e0ebfd7d] w-full p-4 md:p-8">
@@ -126,14 +137,15 @@ const Appointments = () => {
                     )}
 
                   {loggedInUserType === "Doctor" && (
-                    <div className="bg-blue-500 rounded-md px-2 py-1 text-white text-center text-sm hover:bg-blue-700 duration-300">
+                    <div
+                      onClick={() => handleViewDetails(appointment)}
+                      className="bg-blue-500 rounded-md px-3 py-2 text-white text-center text-sm hover:bg-blue-700 duration-300 cursor-pointer"
+                    >
                       View Details
                     </div>
                   )}
                 </div>
-               
               </div>
-           
             ))}
           </div>
         </>
@@ -141,8 +153,45 @@ const Appointments = () => {
         <div className="text-center text-gray-600 mt-8">
           You do not have any appointments.
         </div>
-      )} 
-      <Paginate/>
+      )}
+      <Paginate />
+
+      {/* Popup for Selected Appointment */}
+      {selectedAppointment && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-md p-6 w-full max-w-md shadow-lg relative m-1">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={closePopup}
+            >
+              &times;
+            </button>
+            <h2 className="text-lg font-semibold mb-4">Appointment Details</h2>
+            <p><strong>Patient:</strong> {selectedAppointment.patientId?.name}</p>
+            <p>
+              <strong>Appointment Date:</strong>{" "}
+              {convertDateToLocal(selectedAppointment.appointmentDateAndTime)}
+            </p>
+            <p>
+              <strong>Appointment Time:</strong>{" "}
+              {convertTimeToLocal(selectedAppointment.appointmentDateAndTime)}
+            </p>
+            <p>
+              <strong>Booked At:</strong>{" "}
+              {convertDateToLocal(selectedAppointment.createdAt)}{" "}
+              {convertTimeToLocal(selectedAppointment.createdAt)}
+            </p>
+            <p>
+              <strong>Payment Status:</strong>{" "}
+              {selectedAppointment.paymentStatus}
+            </p>
+            <p>
+              <strong>Additional Notes:</strong>{" "}
+              {selectedAppointment.notes || "N/A"}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
