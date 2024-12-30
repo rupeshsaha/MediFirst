@@ -1,4 +1,4 @@
-# Doctor Appointment Booking Website
+# MediFirst - Doctor Appointment Booking Website
 
 Welcome to the **Doctor Appointment Booking Website**, a seamless platform built using the **MERN stack (MongoDB, Express.js, React.js, Node.js)** to help patients easily schedule appointments with doctors.
 
