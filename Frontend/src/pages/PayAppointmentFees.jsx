@@ -95,8 +95,8 @@ const PayAppointmentFees = () => {
         setPaymentSuccess(true);
         setBalance(data.updatedBalance.patientBalance);
       }
-      if (response.status>=400 && response.status<=600)
-      alert(`${data.message}`)
+      if (response.status >= 400 && response.status <= 600)
+        alert(`${data.message}`);
     } catch (error) {
       console.error("Error while Creating Transaction", error);
       alert(`${error.message}`);

@@ -18,7 +18,7 @@ const HomePage = () => {
   const [location, setLocation] = useState("");
   const [search, setSearch] = useState(false);
   const [doctors, setDoctors] = useState([]);
-  const [totalDoctors, setTotalDoctors] = useState(0)
+  const [totalDoctors, setTotalDoctors] = useState(0);
 
   const { currPage, setTotalPages } = useContext(StoreContext);
 
@@ -64,7 +64,7 @@ const HomePage = () => {
         const data = await response.json();
         if (response.status === 200) {
           setDoctors(data.availableDoctors);
-          setTotalDoctors(data.totalDoctors)
+          setTotalDoctors(data.totalDoctors);
         }
         setTotalPages(data.totalPages);
       };
@@ -77,13 +77,12 @@ const HomePage = () => {
 
   return (
     <>
-
-<div className="bg-yellow-100 text-yellow-800 text-center md:text-base text-xs py-2 font-semibold px-2">
-      Your First Appointment with Any Doctor? Get a Flat 50% Off on the Consultation Fee – Book Now!
-    </div>
+      <div className="bg-yellow-100 text-yellow-800 text-center md:text-base text-xs py-2 font-semibold px-2">
+        Your First Appointment with Any Doctor? Get a Flat 50% Off on the
+        Consultation Fee – Book Now!
+      </div>
       {/* Header and Search */}
       <div className="bg-[#e0ebfd7d] flex flex-col justify-center items-start border-b-2 md:gap-6 gap-2 md:p-12 p-3">
-   
         <h1 className="text-xl sm:text-3xl md:text-5xl font-bold text-center">
           Find the best <span className="text-blue-600">Doctors</span> Here
         </h1>
@@ -122,10 +121,11 @@ const HomePage = () => {
         {search ? (
           <h2 className="text-xl font-medium">
             Search Results -
-            {doctors?.length >0 &&
-            (<span className="pl-3 font-normal text-lg">
-              {totalDoctors} doctor{doctors?.length > 1 ? "s" : ""} found
-            </span>)}
+            {doctors?.length > 0 && (
+              <span className="pl-3 font-normal text-lg">
+                {totalDoctors} doctor{doctors?.length > 1 ? "s" : ""} found
+              </span>
+            )}
           </h2>
         ) : (
           <h1 className="text-xl font-medium">Top Doctors</h1>

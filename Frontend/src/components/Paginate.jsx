@@ -4,7 +4,7 @@ import { StoreContext } from "../store/StoreContext";
 const Paginate = () => {
   const { currPage, setCurrPage, totalPages } = useContext(StoreContext);
 
-  if (totalPages <= 0) return null; 
+  if (totalPages <= 0) return null;
 
   const getPageNumbers = () => {
     const pages = [];
@@ -15,7 +15,6 @@ const Paginate = () => {
         pages.push(i);
       }
     } else {
-
       let start = Math.max(currPage - 2, 1);
       let end = Math.min(currPage + 2, totalPages);
 
@@ -34,12 +33,10 @@ const Paginate = () => {
       }
     }
 
-
     return pages;
   };
 
   const pages = getPageNumbers();
-
 
   return (
     <div className="md:w-full  items-center flex justify-center p-4  gap-2">

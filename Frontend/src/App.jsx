@@ -15,41 +15,43 @@ const App = () => {
   const { loggedInUserType, setLoggedInUserType, setBalance, setName } =
     useContext(StoreContext);
 
-    useEffect(() => {
-      const checkAuth = async () => {
-        try {
-          const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth`, {
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/auth`,
+          {
             method: "GET",
             credentials: "include",
-          });
-          const data = await response.json();
-    
-          if (response.status === 200) {
-            setLoggedInUserType(data.userType);
-            
-            // Safely set name
-            setName(data.patient?.name || data.doctor?.name || "Guest");
-            
-            // Safely set balance
-            if (data.userType === "Patient") {
-              setBalance(data.patient?.walletBalance || 0);
-            } else if (data.userType === "Doctor") {
-              setBalance(data.doctor?.totalEarnings || 0);
-            } else {
-              setBalance(0); // Default fallback
-            }
           }
-        } catch (error) {
-          console.error("Error while checking auth:", error);
-          setLoggedInUserType(null); // Reset logged-in state on error
-          setName("Guest");
-          setBalance(0);
+        );
+        const data = await response.json();
+
+        if (response.status === 200) {
+          setLoggedInUserType(data.userType);
+
+          // Safely set name
+          setName(data.patient?.name || data.doctor?.name || "Guest");
+
+          // Safely set balance
+          if (data.userType === "Patient") {
+            setBalance(data.patient?.walletBalance || 0);
+          } else if (data.userType === "Doctor") {
+            setBalance(data.doctor?.totalEarnings || 0);
+          } else {
+            setBalance(0); // Default fallback
+          }
         }
-      };
-    
-      checkAuth();
-    }, [setLoggedInUserType, setBalance, setName]);
-    
+      } catch (error) {
+        console.error("Error while checking auth:", error);
+        setLoggedInUserType(null); // Reset logged-in state on error
+        setName("Guest");
+        setBalance(0);
+      }
+    };
+
+    checkAuth();
+  }, [setLoggedInUserType, setBalance, setName]);
 
   return (
     <>

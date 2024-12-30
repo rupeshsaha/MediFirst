@@ -7,7 +7,8 @@ import Paginate from "../components/Paginate";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
-  const { loggedInUserType, currPage, setTotalPages } = useContext(StoreContext);
+  const { loggedInUserType, currPage, setTotalPages } =
+    useContext(StoreContext);
   const [selectedAppointment, setSelectedAppointment] = useState(null); // Store the selected appointment
 
   // Fetch Appointments
@@ -167,7 +168,9 @@ const Appointments = () => {
               &times;
             </button>
             <h2 className="text-lg font-semibold mb-4">Appointment Details</h2>
-            <p><strong>Patient:</strong> {selectedAppointment.patientId?.name}</p>
+            <p>
+              <strong>Patient:</strong> {selectedAppointment.patientId?.name}
+            </p>
             <p>
               <strong>Appointment Date:</strong>{" "}
               {convertDateToLocal(selectedAppointment.appointmentDateAndTime)}
