@@ -28,13 +28,13 @@ Follow these steps to set up the project locally:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-repo-link.git
+   git clone https://github.com/rupeshsaha/MediFirst.git
    ```
 
 2. **Navigate to the Project Directory:**
 
    ```bash
-   cd doctor-appointment-booking
+   cd MediFirst
    ```
 
 3. **Install Dependencies:**
