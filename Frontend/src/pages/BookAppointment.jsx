@@ -15,6 +15,7 @@ const BookAppointment = () => {
 
   const [doctorDetails, setDoctorDetails] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isFirstTime, setIsFirstTime] = useState(false)
 
   // Handle Input Changes
   const handleChange = (e) => {
@@ -74,8 +75,11 @@ const BookAppointment = () => {
       );
 
       const data = await response.json();
-      if (response.status === 200) setIsSubmitted(true);
-      setAppointmentId(data.createdAppointment._id);
+      if (response.status === 200) 
+      { 
+        setIsFirstTime(data.createdAppointment.isFirstTime)
+        setIsSubmitted(true);
+      setAppointmentId(data.createdAppointment._id);}
     } catch (error) {
       console.error("Error creating appointment:", error);
     }
@@ -113,7 +117,13 @@ const BookAppointment = () => {
           <div>
             <div className="text-green-600 text-center text-xl font-medium">
               ✅ Your appointment has been successfully booked!
+              {isFirstTime && (
+                <div>🎉 Hurray! You got a flat 50% off on consultation fee.</div>
+            )
+            
+            }
             </div>
+      
             <div className="w-full flex gap-2 justify-center p-2 pt-8">
               <Link to="/">
                 <div className="rounded-md border-blue-500 border-2 text-blue-500 py-2 px-3 hover:bg-blue-500 hover:text-white duration-300">

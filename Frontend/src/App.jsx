@@ -15,30 +15,41 @@ const App = () => {
   const { loggedInUserType, setLoggedInUserType, setBalance, setName } =
     useContext(StoreContext);
 
-  useEffect(() => {
-    try {
+    useEffect(() => {
       const checkAuth = async () => {
-        const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/auth`,
-          {
+        try {
+          const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth`, {
             method: "GET",
             credentials: "include",
+          });
+          const data = await response.json();
+    
+          if (response.status === 200) {
+            setLoggedInUserType(data.userType);
+            
+            // Safely set name
+            setName(data.patient?.name || data.doctor?.name || "Guest");
+            
+            // Safely set balance
+            if (data.userType === "Patient") {
+              setBalance(data.patient?.walletBalance || 0);
+            } else if (data.userType === "Doctor") {
+              setBalance(data.doctor?.totalEarnings || 0);
+            } else {
+              setBalance(0); // Default fallback
+            }
           }
-        );
-        const data = await response.json();
-        if (response.status === 200) {
-          setLoggedInUserType(data.userType);
-          console.log(data.doctor.name);
-          
-          setName(data.patient?.name || data.doctor?.name)
-          setBalance(data.patient?.walletBalance || data.doctor?.totalEarnings);
+        } catch (error) {
+          console.error("Error while checking auth:", error);
+          setLoggedInUserType(null); // Reset logged-in state on error
+          setName("Guest");
+          setBalance(0);
         }
       };
+    
       checkAuth();
-    } catch (error) {
-      console.error("Error while checking auth", error);
-    }
-  }, [setLoggedInUserType, setBalance]);
+    }, [setLoggedInUserType, setBalance, setName]);
+    
 
   return (
     <>

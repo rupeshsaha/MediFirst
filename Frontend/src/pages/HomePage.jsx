@@ -77,8 +77,13 @@ const HomePage = () => {
 
   return (
     <>
+
+<div className="bg-yellow-100 text-yellow-800 text-center md:text-base text-xs py-2 font-semibold px-2">
+      Your First Appointment with Any Doctor? Get a Flat 50% Off on the Consultation Fee – Book Now!
+    </div>
       {/* Header and Search */}
       <div className="bg-[#e0ebfd7d] flex flex-col justify-center items-start border-b-2 md:gap-6 gap-2 md:p-12 p-3">
+   
         <h1 className="text-xl sm:text-3xl md:text-5xl font-bold text-center">
           Find the best <span className="text-blue-600">Doctors</span> Here
         </h1>
