@@ -123,7 +123,7 @@ const HomePage = () => {
             Search Results -
             {doctors?.length > 0 && (
               <span className="pl-3 font-normal text-lg">
-                {totalDoctors} doctor{doctors?.length > 1 ? "s" : ""} found
+                {totalDoctors} doctor{totalDoctors > 1 ? "s" : ""} found
               </span>
             )}
           </h2>

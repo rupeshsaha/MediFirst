@@ -110,13 +110,14 @@ const Navbar = () => {
             <span className="font-semibold text-green-600 flex items-center justify-center">
               ₹ {balance}
               {loggedInUserType === "Patient" && (
-                <span
+                  <span
                   onClick={openRechargeModal}
                   className="ml-2 cursor-pointer flex items-center justify-center w-6 h-6 rounded-full text-white bg-green-500 text-lg font-bold"
                 >
                   +
                 </span>
               )}
+            
             </span>
           </div>
 
@@ -177,19 +178,25 @@ const Navbar = () => {
                     <h2 className="text-gray-800 font-bold text-2xl">{name}</h2>
                     <p className="text-gray-600 font-medium">
                       Balance:
-                      {loggedInUserType === "Patient" && (
+                      {loggedInUserType === "Patient" ? (
+                         <span
+                         onClick={openRechargeModal}
+                         className="text-green-600 font-bold"
+                       >
+                         {" "}
+                         ₹ {balance}  +
+                       </span>
+                      ): (
                         <span
-                          onClick={openRechargeModal}
-                          className="text-green-600 font-bold"
-                        >
-                          {" "}
-                          ₹ {balance} +
-                        </span>
-                      )}
-                      <span className="text-green-600 font-bold">
+                        className="text-green-600 font-bold"
+                      >
                         {" "}
-                        ₹ {balance}
+                        ₹ {balance} 
                       </span>
+                      )
+                      }
+                    
+                     
                     </p>
                   </div>
                 </div>
