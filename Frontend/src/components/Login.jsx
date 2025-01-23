@@ -11,18 +11,26 @@ const Login = ({ defaultIsOpen = false }) => {
 
   const { setLoggedInUserType } = useContext(StoreContext);
 
+  //Login Popup Toggle
+
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
+
+  //Handle User Type
 
   const handleUserType = (type) => {
     setUserType(type);
   };
 
+  //handle form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const loginDetails = { email, password };
+
+    //Sending data to  backend through api
 
     try {
       const response = await fetch(
@@ -55,6 +63,7 @@ const Login = ({ defaultIsOpen = false }) => {
 
   return (
     <div>
+      {/* Login Button  */}
       {!defaultIsOpen && (
         <button
           onClick={togglePopup}
@@ -63,6 +72,8 @@ const Login = ({ defaultIsOpen = false }) => {
           Login
         </button>
       )}
+
+      {/* Login Form Container */}
 
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">

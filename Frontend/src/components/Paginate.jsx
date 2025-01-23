@@ -4,7 +4,8 @@ import { StoreContext } from "../store/StoreContext";
 const Paginate = () => {
   const { currPage, setCurrPage, totalPages } = useContext(StoreContext);
 
-  if (totalPages <= 0) return null;
+  //Hide when total page is less than equal to 1
+  if (totalPages <= 1) return null;
 
   const getPageNumbers = () => {
     const pages = [];

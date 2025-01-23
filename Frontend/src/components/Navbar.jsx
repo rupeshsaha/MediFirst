@@ -8,16 +8,21 @@ import closeIcon from "../assets/close.svg";
 import pfp from "../assets/pfp.svg";
 
 const Navbar = () => {
+  // State for mobile device menu bar that toggles its visibility
   const [isOpen, setIsOpen] = useState(false);
+  // State for recharge popup
   const [showRechargeModal, setShowRechargeModal] = useState(false);
+
   const [rechargeAmount, setRechargeAmount] = useState("");
 
   const { loggedInUserType, setLoggedInUserType, balance, setBalance, name } =
     useContext(StoreContext);
 
+    // Toggle Menu bar for mobile devices 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
   };
+
 
   const openRechargeModal = () => {
     setShowRechargeModal(true);
@@ -25,7 +30,7 @@ const Navbar = () => {
 
   const closeRechargeModal = () => {
     setShowRechargeModal(false);
-    setRechargeAmount(""); // Clear input on close
+    setRechargeAmount("");
   };
 
   const handleRecharge = async () => {
@@ -34,6 +39,7 @@ const Navbar = () => {
       return;
     }
 
+    // Sending recharge details to backend through api 
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SERVER_URL}/transaction/recharge`,
@@ -61,6 +67,7 @@ const Navbar = () => {
       alert("An error occurred during recharge.");
     }
   };
+
 
   const logoutHandler = async () => {
     try {
