@@ -1,6 +1,7 @@
 # MediFirst - Doctor Appointment Booking Website
 
 Welcome to the **Doctor Appointment Booking Website**, a seamless platform built using the **MERN stack (MongoDB, Express.js, React.js, Node.js)** to help patients easily schedule appointments with doctors.
+<a href="https://youtu.be/_Jyugm_rZx4?si=M9-1Sv1W79u0qMZw">Demo Video</a>
 
 ## 🚀 Key Features
 
@@ -27,13 +28,13 @@ Follow these steps to set up the project locally:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-repo-link.git
+   git clone https://github.com/rupeshsaha/MediFirst.git
    ```
 
 2. **Navigate to the Project Directory:**
 
    ```bash
-   cd doctor-appointment-booking
+   cd MediFirst
    ```
 
 3. **Install Dependencies:**
@@ -71,17 +72,6 @@ Follow these steps to set up the project locally:
 - Data encryption for sensitive information.
 - Secure authentication with JWT.
 
-## 🤝 Contribution
-
-Contributions are welcome! Please fork the repository and create a pull request.
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
-## 📧 Contact
-
-For any inquiries or support, reach out at: **[support@example.com](mailto\:support@example.com)**
 
 Happy Booking! 🩺📅
 
